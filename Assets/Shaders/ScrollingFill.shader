@@ -10,13 +10,13 @@
 
 		SubShader
 		{
-			Tags { "RenderType" = "Opaque" }
+			Tags { "Queue" = "Transparent" }
 			LOD 100
 
 			Pass
 			{
 				ZWrite On
-				Blend SrcAlpha OneMinusSrcAlpha				
+				Blend SrcAlpha OneMinusSrcAlpha
 
 				CGPROGRAM
 				#pragma vertex vert
@@ -57,8 +57,16 @@
 					// sample texture
 					fixed4 col = tex2D(_MainTex, i.uv - scroll);
 
+					float end = _Fill * _MainTex_ST.y;
+
 					// discard if uv.y is below cut value
-					clip(step(i.uv.y, _Fill* _MainTex_ST.y) - 0.1);
+					clip(step(i.uv.y, end) - 0.1);
+
+					if (i.uv.y < end * 0.5)
+						col.a = i.uv.y;
+					else
+						col.a = end - i.uv.y;
+
 
 					return col;
 
