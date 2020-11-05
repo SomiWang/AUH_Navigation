@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+<Tracking>
+<ModelTarget name="ahm-01" motionHint="static" trackingMode="default"/>
+
+</Tracking>
+
+<Assembly name="ahm-01s_assembly" assemblyId="5578ecb0ef0d4c8ba954553cd7838f70">
+<Part name="ahm-01" translation="0 0 0" rotation="AD: 0 0 1 0"/>
+<EntryPoint name="viewpoint_0001" translation="-0.182518 0.306807 0.730586" rotation="AD: 0.910371252396669 0.9114582362507806 -0.7625127714937562 126.07" trained="no">
+
+</EntryPoint>
+
+</Assembly>
+
+</QCARConfig>

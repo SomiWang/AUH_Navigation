@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARInfo>
+<TargetSet version="14.0" toolVersion="9.3.3">
+<ModelTarget name="ahm-01" targetId="4dbb4da5a4e7406481def339927b267f" version="11.1" toolVersion="9.3.3" bbox="-0.001046 -0.002282 -0.389653 0.390452 0.382278 0.691489" previewImage="4dbb4da5a4e7406481def339927b267f_preview.jpg"/>
+
+</TargetSet>
+
+<Assembly name="ahm-01s_assembly" assemblyId="5578ecb0ef0d4c8ba954553cd7838f70">
+<Part name="ahm-01" translation="0 0 0" rotation="AD: 0 0 1 0"/>
+<EntryPoint name="viewpoint_0001" translation="-0.182518 0.306807 0.730586" rotation="AD: 0.910371252396669 0.9114582362507806 -0.7625127714937562 126.07" image="ahm-01_viewpoint_0001.png" trained="no">
+
+</EntryPoint>
+
+</Assembly>
+
+</QCARInfo>
