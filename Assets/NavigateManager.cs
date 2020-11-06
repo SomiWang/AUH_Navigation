@@ -13,21 +13,27 @@ public class NavigateManager : MonoBehaviour
     private List<NavLocation> m_Locations = new List<NavLocation>();
     public static NavigateManager Instance;
     private GlobalEventSystem.EscalatorStatus targetEscalatorStatus;
-    private int targetFloor;
+    public int TargetFloor { get; private set; }
     private void Awake()
     {
         Instance = this;
         GlobalEventSystem.Instance.OnEscalatorStatusChanged += _OnEscalatorStatusChanged;
+        GlobalEventSystem.Instance.OnEndNavigatting += _OnEndNavigatting;
+    }
+
+    private void _OnEndNavigatting(GlobalEventSystem.EntranceStatus status)
+    {
+        m_RoadContianer.HideRoads();
     }
 
     private void _OnEscalatorStatusChanged(GlobalEventSystem.EscalatorStatus status, int floor)
     {
         if (targetEscalatorStatus == GlobalEventSystem.EscalatorStatus.None) return;
 
-        if (targetFloor == floor)
+        if (TargetFloor == floor)
         {
             targetEscalatorStatus = GlobalEventSystem.EscalatorStatus.None;
-            targetFloor = 0;
+            TargetFloor = 0;
             m_EscalatorUI?.Hide();
             ShowRoad();
             return;
@@ -60,7 +66,7 @@ public class NavigateManager : MonoBehaviour
         m_RoadContianer.HideRoads();
         m_RoadContianer.Roads[0].SetActive(true);
         targetEscalatorStatus = GlobalEventSystem.EscalatorStatus.Up;
-        targetFloor = 3;
+        TargetFloor = 3;
         GlobalEventSystem.Instance.OnStartNavigatting.Invoke();
         return true;
     }

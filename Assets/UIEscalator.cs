@@ -12,7 +12,7 @@ public class UIEscalator : MonoBehaviour
     {
         Hide();
     }
-    public void Show(Vector3 pos, GlobalEventSystem.EscalatorStatus status)
+    public void Show(Vector3 pos, GlobalEventSystem.EscalatorStatus status, bool isArrived = false)
     {
         gameObject.SetActive(true);
         transform.position = pos;
@@ -21,6 +21,8 @@ public class UIEscalator : MonoBehaviour
         transform.rotation = rotation * transform.rotation;
         if (lookAtCoroutine != null) StopCoroutine(lookAtCoroutine);
         lookAtCoroutine = StartCoroutine(LookAtCamera());
+
+        if (isArrived) m_Content.text = "已抵達[血液透析室]";
 
         switch (status)
         {

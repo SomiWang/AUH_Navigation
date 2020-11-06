@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class NavLocation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    UIEscalator m_UIEscalator;
+    private void OnTriggerEnter(Collider collider)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collider.gameObject != Camera.main.gameObject || !GlobalEventSystem.Instance.IsNavigatting/* || target.navlocation != this*/) return;
+        {
+            GlobalEventSystem.Instance.OnEndNavigatting(GlobalEventSystem.EntranceStatus.Arrived);
+            m_UIEscalator.Show(gameObject.transform.position + Camera.main.transform.forward, GlobalEventSystem.EscalatorStatus.None, true);
+        }
     }
 }

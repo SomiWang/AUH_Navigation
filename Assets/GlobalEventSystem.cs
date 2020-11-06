@@ -64,7 +64,7 @@ public class GlobalEventSystem
     public enum EntranceStatus
     {
         None,
-        Arrivated,
+        Arrived,
         Faild,
         ForceStopped
     }
