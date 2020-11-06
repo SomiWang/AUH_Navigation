@@ -65,6 +65,7 @@ public class GlobalEventSystem
     {
         None,
         Arrived,
+        PostArrived,
         Faild,
         ForceStopped
     }

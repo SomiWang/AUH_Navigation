@@ -6,6 +6,8 @@ public class UIEscalator : MonoBehaviour
 {
     private Coroutine lookAtCoroutine;
     [SerializeField]
+    private GameObject m_UI;
+    [SerializeField]
     private Text m_Content;
 
     private void Awake()
@@ -14,7 +16,7 @@ public class UIEscalator : MonoBehaviour
     }
     public void Show(Vector3 pos, GlobalEventSystem.EscalatorStatus status, bool isArrived = false)
     {
-        gameObject.SetActive(true);
+        m_UI.SetActive(true);
         transform.position = pos;
         //Align to Vector.up
         var rotation = Quaternion.FromToRotation(transform.up, Vector3.up);
@@ -33,11 +35,15 @@ public class UIEscalator : MonoBehaviour
                 m_Content.text = "請下樓";
                 break;
         }
+        Canvas.ForceUpdateCanvases();
+        var layout = m_UI.GetComponent<HorizontalLayoutGroup>();
+        layout.enabled = false;
+        layout.enabled = true;
     }
     public void Hide()
     {
         if (lookAtCoroutine != null) StopCoroutine(lookAtCoroutine);
-        gameObject.SetActive(false);
+        m_UI.SetActive(false);
     }
 
     private IEnumerator LookAtCamera()
