@@ -6,8 +6,6 @@ public class UIEscalator : MonoBehaviour
 {
     private Coroutine lookAtCoroutine;
     [SerializeField]
-    private GameObject m_UI;
-    [SerializeField]
     private Text m_Content;
 
     private void Awake()
@@ -16,34 +14,30 @@ public class UIEscalator : MonoBehaviour
     }
     public void Show(Vector3 pos, GlobalEventSystem.EscalatorStatus status, bool isArrived = false)
     {
-        m_UI.SetActive(true);
-        transform.position = pos;
-        //Align to Vector.up
-        var rotation = Quaternion.FromToRotation(transform.up, Vector3.up);
-        transform.rotation = rotation * transform.rotation;
-        if (lookAtCoroutine != null) StopCoroutine(lookAtCoroutine);
-        lookAtCoroutine = StartCoroutine(LookAtCamera());
+        gameObject.SetActive(true);
+        //transform.position = pos;
+        ////Align to Vector.up
+        //var rotation = Quaternion.FromToRotation(transform.up, Vector3.up);
+        //transform.rotation = rotation * transform.rotation;
+        //if (lookAtCoroutine != null) StopCoroutine(lookAtCoroutine);
+        //lookAtCoroutine = StartCoroutine(LookAtCamera());
 
-        if (isArrived) m_Content.text = "已抵達[血液透析室]";
+        if (isArrived) m_Content.text = "已抵達目的地";
 
         switch (status)
         {
             case GlobalEventSystem.EscalatorStatus.Up:
-                m_Content.text = "請到三樓";
+                m_Content.text = "請到左側電扶梯前往三樓";
                 break;
             case GlobalEventSystem.EscalatorStatus.Down:
                 m_Content.text = "請下樓";
                 break;
         }
-        Canvas.ForceUpdateCanvases();
-        var layout = m_UI.GetComponent<HorizontalLayoutGroup>();
-        layout.enabled = false;
-        layout.enabled = true;
     }
     public void Hide()
     {
-        if (lookAtCoroutine != null) StopCoroutine(lookAtCoroutine);
-        m_UI.SetActive(false);
+        //if (lookAtCoroutine != null) StopCoroutine(lookAtCoroutine);
+        gameObject.SetActive(false);
     }
 
     private IEnumerator LookAtCamera()
@@ -65,6 +59,6 @@ public class UIEscalator : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation * transform.rotation, Time.deltaTime * 0.5f);
             yield return null;
         }
-        lookAtCoroutine = null;
+        //lookAtCoroutine = null;
     }
 }

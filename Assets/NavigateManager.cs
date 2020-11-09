@@ -8,6 +8,8 @@ public class NavigateManager : MonoBehaviour
     private RoadContianer m_RoadContianer;
     [SerializeField]
     private UIEscalator m_EscalatorUI;
+    [SerializeField]
+    private GameObject[] m_Arrows;
     private EscalatorEntrance currentEscalatorEntrance;
     [SerializeField]
     private List<NavLocation> m_Locations = new List<NavLocation>();
@@ -19,6 +21,7 @@ public class NavigateManager : MonoBehaviour
         Instance = this;
         GlobalEventSystem.Instance.OnEscalatorStatusChanged += _OnEscalatorStatusChanged;
         GlobalEventSystem.Instance.OnEndNavigatting += _OnEndNavigatting;
+        m_Arrows[0].SetActive(GlobalEventSystem.Instance.IsNavigatting);
     }
 
     private void _OnEndNavigatting(GlobalEventSystem.EntranceStatus status)
@@ -35,6 +38,7 @@ public class NavigateManager : MonoBehaviour
             targetEscalatorStatus = GlobalEventSystem.EscalatorStatus.None;
             TargetFloor = 0;
             m_EscalatorUI?.Hide();
+            m_Arrows[0].SetActive(false);
             ShowRoad();
             return;
         }
@@ -44,6 +48,7 @@ public class NavigateManager : MonoBehaviour
             case GlobalEventSystem.EscalatorStatus.Enter:
                 m_RoadContianer.HideRoads();
                 m_EscalatorUI?.Show(currentEscalatorEntrance.transform.position, targetEscalatorStatus);
+                m_Arrows[0].SetActive(true);
                 break;
             case GlobalEventSystem.EscalatorStatus.Exit:
                 _SetLastGoal("Test");
