@@ -2,9 +2,9 @@
 {
 	Properties
 	{
-		_Color("Main Color", Color) = (1, 1, 1, 1)
 		_MainTex("Texture", 2D) = "white" {}
 		_Fill("Fill", Range(0.0,1.0)) = 0.5
+		_Alpha("Alpha",  Range(0.0,1.0)) = 1
 		_Speed("Speed", float) = 5
 	}
 
@@ -40,6 +40,7 @@
 				float4 _MainTex_ST;
 				float _Fill;
 				float _Speed;
+				float _Alpha;
 
 				v2f vert(appdata v)
 				{
@@ -62,12 +63,17 @@
 					// discard if uv.y is below cut value
 					clip(step(i.uv.y, end) - 0.1);
 
-					if (i.uv.y < end * 0.5)
-						col.a = i.uv.y;
-					else
-						col.a = end - i.uv.y;
 
+					if (col.a != 0)
+					{
 
+						if (i.uv.y < end * 0.5)
+							col.a = i.uv.y;
+						else
+							col.a = (end - i.uv.y);
+
+						col.a = col.a * _Alpha;
+					}
 					return col;
 
 					// make un-animated part black

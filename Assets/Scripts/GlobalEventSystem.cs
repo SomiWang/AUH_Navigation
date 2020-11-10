@@ -24,13 +24,22 @@ public class GlobalEventSystem
         OnEscalatorStatusChanged += _OnEscalatorStatusChanged;
     }
 
+    public void Uninit()
+    {
+        OnEnterEntrance -= _InEntranceState;
+        OnExitEntrance -= _OutEntranceState;
+        OnStartNavigatting -= _OnStartNavigatting;
+        OnEndNavigatting -= _OnEndNavigatting;
+        OnEscalatorStatusChanged -= _OnEscalatorStatusChanged;
+    }
+
     private void _OnEscalatorStatusChanged(EscalatorStatus status, int floor)
     {
         CurrentEscalatorStatus = status;
         CurrentFloor = floor;
     }
 
-    private void _OnEndNavigatting(EntranceStatus obj)
+    private void _OnEndNavigatting(EntranceStatus status)
     {
         IsNavigatting = false;
     }
@@ -61,20 +70,21 @@ public class GlobalEventSystem
     {
         InEntranceCollider = false;
     }
-    public enum EntranceStatus
-    {
-        None,
-        Arrived,
-        PostArrived,
-        Faild,
-        ForceStopped
-    }
-    public enum EscalatorStatus
-    {
-        None,
-        Enter,
-        Up,
-        Down,
-        Exit
-    }
+
+}
+public enum EntranceStatus
+{
+    None,
+    Arrived,
+    PostArrived,
+    Faild,
+    ForceStopped
+}
+public enum EscalatorStatus
+{
+    None,
+    Enter,
+    Up,
+    Down,
+    Exit
 }

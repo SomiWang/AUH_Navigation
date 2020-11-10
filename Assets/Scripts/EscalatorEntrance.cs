@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EscalatorEntrance : MonoBehaviour
 {
@@ -13,22 +11,22 @@ public class EscalatorEntrance : MonoBehaviour
     {
         if (collider.gameObject != Camera.main.gameObject) return;
         NavigateManager.Instance.AssignEscalatorEntrance(this);
-        GlobalEventSystem.Instance.OnEscalatorStatusChanged.Invoke(GlobalEventSystem.EscalatorStatus.Enter, m_Floor);
+        GlobalEventSystem.Instance.OnEscalatorStatusChanged.Invoke(EscalatorStatus.Enter, m_Floor);
     }
 
     private void OnTriggerExit(Collider collider)
     {
         if (collider.gameObject != Camera.main.gameObject) return;
-        var _status = GlobalEventSystem.EscalatorStatus.None;
+        var _status = EscalatorStatus.None;
 
         switch (GetCameraDirection())
         {
             case Direction.Front:
-                if (m_IsDown) _status = GlobalEventSystem.EscalatorStatus.Down;
-                else _status = GlobalEventSystem.EscalatorStatus.Up;
+                if (m_IsDown) _status = EscalatorStatus.Down;
+                else _status = EscalatorStatus.Up;
                 break;
             case Direction.Back:
-                _status = GlobalEventSystem.EscalatorStatus.Exit;
+                _status = EscalatorStatus.Exit;
                 break;
         }
         GlobalEventSystem.Instance.OnEscalatorStatusChanged.Invoke(_status, m_Floor);

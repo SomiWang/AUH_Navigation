@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
@@ -20,19 +17,19 @@ public class AudioManager : MonoBehaviour
         GlobalEventSystem.Instance.OnEndNavigatting += _OnEndNavigatting;
     }
 
-    private void _OnEndNavigatting(GlobalEventSystem.EntranceStatus status)
+    private void _OnEndNavigatting(EntranceStatus status)
     {
-        if (status == GlobalEventSystem.EntranceStatus.Arrived)
-            PlayAudio(1);
+        if (status == EntranceStatus.Arrived)
+            PlayAudio(2);
     }
 
-    private void _OnEscalatorStatusChanged(GlobalEventSystem.EscalatorStatus status, int floorNo)
+    private void _OnEscalatorStatusChanged(EscalatorStatus status, int floorNo)
     {
         if (!GlobalEventSystem.Instance.IsNavigatting
-           || status != GlobalEventSystem.EscalatorStatus.Enter
-           || NavigateManager.Instance.TargetFloor == 0
-           || floorNo == NavigateManager.Instance.TargetFloor) return;
-        PlayAudio(0);
+           || status != EscalatorStatus.Enter
+           || NavigateManager.Instance.TargetFloor == 0) return;
+        if (floorNo == NavigateManager.Instance.TargetFloor) PlayAudio(1);
+        else PlayAudio(0);
     }
 
     [SerializeField]
